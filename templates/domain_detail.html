@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}NHS Data Explorer - {{ domain.title }}{% endblock %}
+
+{% block content %}
+<div class="breadcrumb">
+    <a href="/">Domains</a> &gt; {{ domain.title }}
+</div>
+
+<div class="domain-header">
+    <h2>{{ domain.title }}</h2>
+    <p class="subtitle">{{ domain.description }}</p>
+    <button onclick="openAssistant('{{ domain_id }}')" class="btn primary">
+        <i class="fas fa-robot"></i> Ask Assistant About This Domain
+    </button>
+</div>
+
+<div class="domain-details">
+    <div class="domain-section">
+        <h3>Suggested Questions for Data Scientists</h3>
+        <p class="help-text">These questions can help you understand the domain better and guide your analysis</p>
+        
+        <div class="question-list">
+            {% for question in domain.suggested_questions %}
+            <div class="question-card" onclick="copyToChat('{{ question }}')">
+                <div class="question-text">{{ question }}</div>
+                <div class="question-actions">
+                    <button class="btn small" title="Ask this question">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="domain-section">
+        <div class="domain-metrics-card">
+            <h3>Key Domain Metrics</h3>
+            <div class="metrics-list">
+                {% for metric in domain.key_metrics %}
+                <div class="metric-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>{{ metric }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="domain-sources-card">
+            <h3>Relevant Data Sources</h3>
+            <div class="sources-list">
+                {% for source in domain.relevant_data_sources %}
+                <div class="source-item">
+                    <i class="fas fa-database"></i>
+                    <span>{{ source }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Domain-specific visualizations -->
+    <div class="domain-visualization">
+        <h3>Domain Structure Visualization</h3>
+        <div class="viz-container">
+            <canvas id="domainStructureChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to copy question to chat input and open chat modal
+    function copyToChat(question) {
+        openAssistant('{{ domain_id }}');
+        document.getElementById('user-input').value = question;
+        // Focus the input field
+        setTimeout(() => {
+            document.getElementById('user-input').focus();
+        }, 100);
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create a simple visualization based on domain data
+        const ctx = document.getElementById('domainStructureChart').getContext('2d');
+        
+        // For this demo, we'll create a radar chart showing the "dimensions" of this domain
+        // In a real application, you would customize this per domain or use real data
+        const domainStructureChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Data Complexity', 'Technical Expertise Required', 'Clinical Knowledge Needed', 'Analytical Value', 'Implementation Difficulty'],
+                datasets: [{
+                    label: '{{ domain.title }} Domain Profile',
+                    data: generateRandomData(5, 30, 100), // Random data for demo
+                    fill: true,
+                    backgroundColor: 'rgba(0, 94, 184, 0.2)', // NHS Blue with transparency
+                    borderColor: '#005EB8',
+                    pointBackgroundColor: '#005EB8',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#005EB8'
+                }]
+            },
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+        
+        // Helper function to generate random data for demo visualization
+        function generateRandomData(count, min, max) {
+            return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+    });
+</script>
+{% endblock %}

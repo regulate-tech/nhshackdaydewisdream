@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}NHS Data Explorer - Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h2>NHS Data Domain Explorer</h2>
+    <p class="subtitle">A resource for data scientists to understand NHS data domains and ask better questions</p>
+</div>
+
+<div class="domain-grid">
+    {% for domain_id, domain in domains.items() %}
+    <div class="domain-card" data-domain-id="{{ domain_id }}" data-domain-name="{{ domain.title }}">
+        <h3>{{ domain.title }}</h3>
+        <p>{{ domain.description }}</p>
+        
+        <div class="domain-metrics">
+            <h4>Key Metrics</h4>
+            <ul>
+                {% for metric in domain.key_metrics %}
+                <li>{{ metric }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="domain-actions">
+            <a href="/domain/{{ domain_id }}" class="btn primary">Explore Domain</a>
+            <button onclick="openAssistant('{{ domain_id }}')" class="btn secondary">Ask Assistant</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="dashboard-summary">
+    <h3>NHS Data Science Overview</h3>
+    
+    <div class="dashboard-cards">
+        <div class="dashboard-card">
+            <h4>Data Domains</h4>
+            <div class="data-stat">{{ domains|length }}</div>
+            <p>Key NHS areas for data analysis</p>
+        </div>
+        
+        <div class="dashboard-card">
+            <h4>Suggested Questions</h4>
+            <div class="data-stat">
+                {% set question_count = 0 %}
+                {% for domain in domains.values() %}
+                    {% set question_count = question_count + domain.suggested_questions|length %}
+                {% endfor %}
+                {{ question_count }}
+            </div>
+            <p>Starting points for your analysis</p>
+        </div>
+        
+        <div class="dashboard-card">
+            <h4>Data Sources</h4>
+            <div class="data-stat">
+                {% set sources = [] %}
+                {% for domain in domains.values() %}
+                    {% for source in domain.relevant_data_sources %}
+                        {% if source not in sources %}
+                            {% set sources = sources + [source] %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                {{ sources|length }}
+            </div>
+            <p>Relevant NHS systems and datasets</p>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="domainQuestionsChart"></canvas>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up a chart showing number of questions per domain
+        const ctx = document.getElementById('domainQuestionsChart').getContext('2d');
+        
+        // Extract domain names and question counts
+        const domainNames = [];
+        const questionCounts = [];
+        
+        {% for domain_id, domain in domains.items() %}
+        domainNames.push('{{ domain.title }}');
+        questionCounts.push({{ domain.suggested_questions|length }});
+        {% endfor %}
+        
+        // Create chart
+        const domainQuestionsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: domainNames,
+                datasets: [{
+                    label: 'Suggested Questions per Domain',
+                    data: questionCounts,
+                    backgroundColor: [
+                        '#005EB8', // NHS Blue
+                        '#00A499', // NHS Green
+                        '#330072', // NHS Purple
+                        '#AE2573', // NHS Pink
+                        '#E8EDEE'  // NHS Grey
+                    ],
+                    borderColor: '#425563',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
