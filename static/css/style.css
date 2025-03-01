@@ -424,9 +424,14 @@ h4 {
     border-radius: 4px;
 }
 
-.metric-item i, .source-item i {
+.metric-item i {
     margin-right: 0.8rem;
-    color: var(--nhs-blue);
+    color: var(--nhs-green);
+}
+
+.source-item i {
+    margin-right: 0.8rem;
+    color: var(--nhs-purple);
 }
 
 .domain-visualization {
