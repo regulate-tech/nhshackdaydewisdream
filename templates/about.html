@@ -19,29 +19,31 @@
         <p class="video-caption">Watch our project overview video to learn more about Healthcare WayFinder</p>
     </div>
 
+{#    <div class="about-section">#}
+{#        <h3>Our Team</h3>#}
+{#        <div class="team-grid">#}
+{#            <div class="team-member">#}
+{#                <div class="member-photo">#}
+{#                    <!-- Optional team member photo -->#}
+{#                    <i class="fas fa-user-md fa-4x"></i>#}
+{#                </div>#}
+{#                <h4>Team Member Name</h4>#}
+{#                <p class="member-role">Role/Title</p>#}
+{#                <p class="member-bio">Brief bio or description about the team member's expertise and contribution.</p>#}
+{#            </div>#}
+{#            #}
+{#            <!-- Add more team members as needed -->#}
+{#        </div>#}
+{#    </div>#}
+    
     <div class="about-section">
-        <h3>Our Team</h3>
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="member-photo">
-                    <!-- Optional team member photo -->
-                    <i class="fas fa-user-md fa-4x"></i>
-                </div>
-                <h4>Team Member Name</h4>
-                <p class="member-role">Role/Title</p>
-                <p class="member-bio">Brief bio or description about the team member's expertise and contribution.</p>
-            </div>
-            
-            <!-- Add more team members as needed -->
+        <h3>Our Methodology</h3>
+        <div class="methodology-container">
+            <img src="{{ url_for('static', filename='img/infographic3.png') }}" alt="Project Methodology Diagram" class="methodology-image">
+            <p>We have developed a structure for your learning journey, guided by domain experts. You can adapt it for your role or organisation. We have found this method to be engaging, enthusiastic and captivating
+</p>
         </div>
     </div>
-    
-    <div class="about-section">
-        <h3>The Technology</h3>
-        <p>This application uses a combination of Flask for the backend, modern web technologies for the frontend, and integrates with Ollama's LLM to provide intelligent responses to clinical queries.</p>
-        <p>Our AI assistant is designed to provide informational support only and should not replace professional medical advice.</p>
-    </div>
-    
     <div class="about-section">
         <h3>Contact</h3>
         <p>For more information or inquiries, please contact us at: <a href="mailto:example@nhs.uk">example@nhs.uk</a></p>
