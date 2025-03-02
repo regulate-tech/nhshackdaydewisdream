@@ -19,6 +19,9 @@
                 ],
                 "content_urls": [
                     {"title": "NHS England: Who We Are", "url": "https://www.england.nhs.uk/about/"},
+                    {"title": "NHS Wales Shared Services Partnership e-governance manual", "url": "https://nwssp.nhs.wales/a-wp/governance-e-manual/knowing-who-does-what-why/"},
+                    {"title": "About NHS Scotland", "url": "https://www.scot.nhs.uk/about-nhs-scotland/"},
+                    {"title": "Health and social care in Northern Ireland", "url": "https://www.hscni.net/"},
                     {"title": "The King's Fund: Structure of the NHS in England", "url": "https://www.kingsfund.org.uk/audio-video/how-does-nhs-in-england-work"},
                     {"title": "NHS Digital Organization Data Service", "url": "https://digital.nhs.uk/services/organisation-data-service"},
                     {"title": "Understanding Integrated Care Systems", "url": "https://www.england.nhs.uk/integratedcare/what-is-integrated-care/"}
