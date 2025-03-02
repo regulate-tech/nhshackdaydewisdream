@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import json
 
 # Comment out the following line if Ollama is not installed or available
-# import ollama
+import ollama
 
 app = Flask(__name__)
 
@@ -94,7 +94,7 @@ Always clarify you are an AI assistant providing general information, not specif
         # Try using ollama, but fall back to a mock response if not available
         try:
             # Uncomment the following if Ollama is available
-            """
+            
             messages = [
                 {
                     "role": "system", 
@@ -107,7 +107,7 @@ Always clarify you are an AI assistant providing general information, not specif
             ]
             response = ollama.chat(model='llama3', messages=messages)
             bot_response = response['message']['content']
-            """
+            
             # Mock response for demo
             bot_response = f"This is a simulated AI response about '{user_message}'. In a real implementation, this would connect to an LLM like Ollama."
             if domain_context:
