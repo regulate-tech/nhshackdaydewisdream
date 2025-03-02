@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}NHS Healthcare Explorer | {{ module.module_name }}{% endblock %}
+
+{% block content %}
+<div class="breadcrumb">
+    <a href="{{ url_for('index') }}">Home</a> &gt; 
+    <a href="{{ url_for('domain_detail', domain_id=domain_id) }}">{{ domain.title }}</a> &gt; 
+    Module {{ module.module_number }}
+</div>
+
+<div class="module-header">
+    <h2>Module {{ module.module_number }}: {{ module.module_name }}</h2>
+    
+    <!-- Parse learning outcomes into a numbered list if they contain line breaks or numbers -->
+    {% if '\n' in module.module_learning_outcomes or module.module_learning_outcomes.strip().startswith('1.') %}
+        <div class="module-detail-specific">
+            <h3>Learning Outcomes</h3>
+            <ol class="learning-outcomes">
+                {% for outcome in module.module_learning_outcomes.split('\n') %}
+                    {% if outcome.strip() %}
+                        <li>{{ outcome.strip().replace('1. ', '').replace('2. ', '').replace('3. ', '').replace('4. ', '').replace('5. ', '') }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+    {% else %}
+        <p class="subtitle">{{ module.module_learning_outcomes }}</p>
+    {% endif %}
+    
+    <div class="module-actions">
+        <button onclick="openAssistant('{{ domain_id }}')" class="btn primary">
+            <i class="fas fa-robot"></i> Ask AI Assistant
+        </button>
+    </div>
+</div>
+
+<div class="module-content module-detail-specific">
+    <div class="module-overview">
+        <h3>Module Overview</h3>
+        <p>This module is part of the {{ domain.title }} domain. It aims to provide you with knowledge and understanding of {{ module.module_name.lower() }} within the NHS context.</p>
+        
+        <div class="module-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <h4>Learning Focus</h4>
+                    <p>{{ module.description | truncate(100) }}</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h4>Guided Questions</h4>
+                    <p>{{ module.questions | length }} key questions to explore</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="stat-info">
+                    <h4>Practical Activities</h4>
+                    <p>{{ module.activities | length }} hands-on activities to apply your knowledge</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="feature-content">
+            <h3>Why This Matters</h3>
+            <p>{{ module.why_this_matters }}</p>
+        </div>
+    </div>
+    
+    <!-- Content Details Section -->
+    <div class="content-container">
+        <!-- Module Description Section -->
+        <div class="content-section module-description-section">
+            <h3>Module Description</h3>
+            <div class="description-content">
+                <p>{{ module.description }}</p>
+            </div>
+        </div>
+        
+        <!-- Questions Section -->
+        <div class="content-section">
+            <div class="content-section-header">
+                <h3>Key Questions</h3>
+            </div>
+            <div class="content-section-body">
+                <div class="questions-container">
+                    {% for question in module.questions %}
+                    <div class="question-item" onclick="copyToChat('{{ question }}')">
+                        <div class="question-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="question-text">
+                            {{ question }}
+                        </div>
+                        <div class="question-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content URLs Section -->
+        <div class="content-section">
+            <div class="content-section-header">
+                <h3>Learning Resources</h3>
+            </div>
+            <div class="content-section-body">
+                <div class="content-urls-container">
+                    {% for url_item in module.content_urls %}
+                    <a href="{{ url_item.url }}" target="_blank" class="content-url-item">
+                        <div class="url-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <div class="url-text">
+                            {{ url_item.title }}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activities Section -->
+        <div class="content-section">
+            <div class="content-section-header">
+                <h3>Activities to Try</h3>
+            </div>
+            <div class="content-section-body">
+                <div class="activities-container">
+                    {% for activity in module.activities %}
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="activity-text">
+                            {{ activity }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to copy question to chat input and open chat modal
+    function copyToChat(question) {
+        openAssistant('{{ domain_id }}');
+        document.getElementById('user-input').value = question;
+        // Focus the input field
+        setTimeout(() => {
+            document.getElementById('user-input').focus();
+        }, 100);
+    }
+</script>
+{% endblock %}

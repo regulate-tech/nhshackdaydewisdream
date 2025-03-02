@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}NHS Healthcare Explorer | {{ module.module_name }} Content{% endblock %}
+
+{% block content %}
+<div class="breadcrumb">
+    <a href="{{ url_for('index') }}">Home</a> &gt; 
+    <a href="{{ url_for('domain_detail', domain_id=domain_id) }}">{{ domain.title }}</a> &gt; 
+    <a href="{{ url_for('module_detail', domain_id=domain_id, module_number=module.module_number) }}">Module {{ module.module_number }}</a> &gt;
+    Content
+</div>
+
+<div class="module-header">
+    <h2>{{ module.module_name }} Content</h2>
+    <p class="subtitle">Learning resources and activities for this module</p>
+</div>
+
+<div class="content-container">
+    <!-- Module Description Section -->
+    <div class="content-section module-description-section">
+        <h3>Module Description</h3>
+        <div class="description-content">
+            <p>{{ module.description }}</p>
+            <div class="why-matters">
+                <h4>Why This Matters</h4>
+                <p>{{ module.why_this_matters }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Questions Section -->
+    <div class="content-section">
+        <div class="content-section-header">
+            <h3>Key Questions</h3>
+        </div>
+        <div class="content-section-body">
+            <div class="questions-container">
+                {% for question in module.questions %}
+                <div class="question-item" onclick="copyToChat('{{ question }}')">
+                    <div class="question-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="question-text">
+                        {{ question }}
+                    </div>
+                    <div class="question-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Content URLs Section -->
+    <div class="content-section">
+        <div class="content-section-header">
+            <h3>Learning Resources</h3>
+        </div>
+        <div class="content-section-body">
+            <div class="content-urls-container">
+                {% for url_item in module.content_urls %}
+                <a href="{{ url_item.url }}" target="_blank" class="content-url-item">
+                    <div class="url-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </div>
+                    <div class="url-text">
+                        {{ url_item.title }}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Activities Section -->
+    <div class="content-section">
+        <div class="content-section-header">
+            <h3>Activities to Try</h3>
+        </div>
+        <div class="content-section-body">
+            <div class="activities-container">
+                {% for activity in module.activities %}
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="activity-text">
+                        {{ activity }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to copy question to chat input and open chat modal
+    function copyToChat(question) {
+        openAssistant('{{ domain_id }}');
+        document.getElementById('user-input').value = question;
+        // Focus the input field
+        setTimeout(() => {
+            document.getElementById('user-input').focus();
+        }, 100);
+    }
+</script>
+{% endblock %}
