@@ -900,3 +900,58 @@ ul:not(.learning-outcomes) {
     line-height: 1.4;
 }
 }
+.methodology-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.methodology-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* For larger screens, show image and text side by side */
+@media (min-width: 768px) {
+    .methodology-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .methodology-image {
+        max-width: 50%;
+    }
+
+    .methodology-container p {
+        flex: 1;
+    }
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-caption {
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
