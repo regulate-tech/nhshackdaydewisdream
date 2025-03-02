@@ -21,6 +21,11 @@ def index():
     """Home page showing all domains/themes"""
     return render_template('index.html', domains=nhs_domains)
 
+@app.route('/about')
+def about():
+    """About Us page"""
+    return render_template('about.html')
+
 @app.route('/domain/<domain_id>')
 def domain_detail(domain_id):
     """Domain detail page showing modules in a specific domain"""

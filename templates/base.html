@@ -17,7 +17,9 @@
             </div>
             <nav>
                 <ul>
+                    
                     <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Domains</a></li>
+                    <li><a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About Us</a></li>
                     <li><a href="#" onclick="openAssistant(null)" class="{{ 'active' if request.path == '/assistant' else '' }}">AI Assistant</a></li>
                     <li><a href="#" onclick="toggleDarkMode()"><i id="theme-toggle" class="fas fa-moon"></i></a></li>
                 </ul>
@@ -60,7 +62,7 @@
 
     <footer>
         <div class="container">
-            <p>NHS Healthcare Explorer - NHS Hackathon 2025</p>
+            <p>NHS Healthcare Wayfinder - NHS Hackathon Cardiff 2025</p>
         </div>
     </footer>
 

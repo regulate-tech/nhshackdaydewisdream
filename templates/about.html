@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Healthcare WayFinder | About Us{% endblock %}
+
+{% block content %}
+<div class="section-title">
+    <h2>Our Mission</h2>
+    <p class="subtitle">We're here to empower you starting your new job in healthcare, with knowledge of the NHS, its systems and its people.</p>
+</div>
+
+<div class="about-container">
+    
+    <div class="about-section">
+        <h3>Project Overview</h3>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/1iL6dVSvns6uumkEBuPrT6gM5JvDYV_eB/preview" width="640" height="360" allowfullscreen></iframe>
+{#            <iframe src="https://drive.google.com/file/d/1iL6dVSvns6uumkEBuPrT6gM5JvDYV_eB/view?usp=sharing" width="640" height="360" allowfullscreen></iframe>#}
+        </div>
+        <p class="video-caption">Watch our project overview video to learn more about Healthcare WayFinder</p>
+    </div>
+
+{#    <div class="about-section">#}
+{#        <h3>Our Team</h3>#}
+{#        <div class="team-grid">#}
+{#            <div class="team-member">#}
+{#                <div class="member-photo">#}
+{#                    <!-- Optional team member photo -->#}
+{#                    <i class="fas fa-user-md fa-4x"></i>#}
+{#                </div>#}
+{#                <h4>Team Member Name</h4>#}
+{#                <p class="member-role">Role/Title</p>#}
+{#                <p class="member-bio">Brief bio or description about the team member's expertise and contribution.</p>#}
+{#            </div>#}
+{#            #}
+{#            <!-- Add more team members as needed -->#}
+{#        </div>#}
+{#    </div>#}
+    
+    <div class="about-section">
+        <h3>Our Methodology</h3>
+        <div class="methodology-container">
+            <img src="{{ url_for('static', filename='img/infographic3.png') }}" alt="Project Methodology Diagram" class="methodology-image">
+            <p>We have developed a structure for your learning journey, guided by domain experts. You can adapt it for your role or organisation. We have found this method to be engaging, enthusiastic and captivating
+</p>
+        </div>
+    </div>
+    <div class="about-section">
+        <h3>Contact</h3>
+        <p>For more information or inquiries, please contact us at: <a href="mailto:example@nhs.uk">example@nhs.uk</a></p>
+    </div>
+</div>
+{% endblock %}
