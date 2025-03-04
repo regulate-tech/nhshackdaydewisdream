@@ -66,14 +66,18 @@ For hackathon demos, you can use Ngrok to create a temporary public URL:
 
 ## Team
 
-- [Your Name] - Developer
-- [Team Member 2] - Content Specialist 
-- [Team Member 3] - UX Designer
-- [Team Member 4] - Healthcare Specialist
+- Rosemary Walmsley
+- Callum Cockburn
+- Matt Mort
+- Matt Hayden
+- Stephanie Hanna
+- Richard Allan
+- Tom
+- Hamish Graham
 
 ## License
 
-This project is created for demonstration purposes as part of the NHS Hackathon.
+This project is created for demonstration purposes as part of the [Cardiff 2025 NHS Hackathon](https://nhshackday.com/projects/28-cardiff/healthcare_wayfinder)
 
 ## Acknowledgments
 
